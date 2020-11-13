@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body id="target">
+  <!-- Experiencia -->
+  <p class="h5 ml-5 mt-3 mb-3">Seleccionar experiencia</p>
+  <div class="custom-select ml-5 mb-5 form-row mb-4">
+    <select class="form-control input-sm" id="input_experiencias" style="width: 100%">
+      <option value="null">Seleccionar secuencia didáctica</option>
+    </select>
+  </div>
+
+  <!-- Filtro de fechas -->
+  <div id="datetime mt-5">
+    <label class="startDate ml-5 font-weight-bold" for="start">Fecha inicio:</label>
+    <input class="date_range_filter m-1" type="date" value="2020-08-14" step="1" id="from_date"
+      name="from-date" />
+    <label class="endDate m-1 font-weight-bold" for="start">Fecha fin:</label>
+    <input class="date_range_filter m-1" type="date" value="2020-10-20" step="1" id="to_date"
+      name="to_date"/>
+    <button id="btnObtener" class="ml-2 btn btn-primary">Filtrar</button>
+  </div>
+
+  <!-- Titulo -->
+  <div class="ml-5 mr-5 mt-5 border-top"></div>
+  <h5 id="h5Participantes" class="ml-5 mr-5 mt-3"></h5>
+
+  <!-- Grafico de los que participaron y no participaron -->
+  <div class="containerTres">
+    <div class="containerTableTres">
+      <table id="tablaTres" class="table table-striped table-bordered" style="width: 100%">
+        <thead class="text-center"></thead>
+        <tbody class="text-center"></tbody>
+      </table>
+    </div>
+    <div class="containerChartTres">
+      <canvas id="myChartTres"></canvas>
+    </div>
+  </div>
+
+  <!-- Titulo -->
+  <div class="ml-5 mr-5 mt-3 border-top"></div>
+  <h5 class="h5Cerradas ml-5 mr-5 mt-3">Preguntas cerradas</h5>
+
+  <!-- Grafico TABLA PREGUNTAS CERRADAS (ContainerUno=Particular ContainerCuatro = total) -->
+  <div class="containerUno">
+    <div class="containerTableUno">
+      <table id="tablaUno" class="table table-striped table-bordered" style="width: 100%">
+        <thead class="text-center"></thead>
+        <tbody class="text-center"></tbody>
+      </table>
+    </div>
+    <div class="containerCuatro">
+      <div class="containerChart">
+        <h5 id="h5TitlePartUno"></h5>
+        <canvas id="myChart" width="300" height="300"></canvas>
+      </div>
+      <div class="containerChartCuatro">
+        <h5 class="h5Title">Total</h5>
+        <canvas id="myChartCuatro"></canvas>
+      </div>
+     <!--  <button type="button" id="descargarPDF" >
+        Descargar Grafico
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Titulo -->
+  <div class="ml-5 mr-5 mt-3 border-top"></div>
+  <h5 class="h5Abiertas ml-5 mr-5 mt-3">Preguntas abiertas</h5>
+
+  <!-- Grafico TABLA PREGUNTAS ABIERTAS (ContainerDos=Particular ContainerCinco = total) -->
+  <div class="containerDos">
+    <div class="containerTableDos">
+      <table id="tablaDos" class="table table-striped table-bordered" style="width: 100%">
+        <thead class="text-center"></thead>
+        <tbody class="text-center"></tbody>
+      </table>
+    </div>
+    <div class="containerCinco">
+      <div class="containerChartDos">
+        <h5 id="h5TitlePartDos"></h5>
+        <canvas id="myChartDos" width="300" height="300"></canvas>
+      </div>
+      <div class="containerChartCinco">
+        <h5 class="h5Title">Total</h5>
+        <canvas id="myChartCinco"></canvas>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/sum().js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="jsPDF-1.3.2/dist/jspdf.min.js"></script>
+
+
+
+  <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+
+</body>
+
+</html>

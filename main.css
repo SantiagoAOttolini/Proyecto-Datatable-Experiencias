@@ -1,0 +1,100 @@
+.containerUno,
+.containerDos,
+.containerTres,
+.containerCuatro,
+.containerCinco { 
+  display: flex;
+}
+
+.containerChart{
+  margin-bottom: 50px;  
+}
+.containerChartCuatro,.containerChartCinco{
+  margin-left:-400px;
+  width: 400px;
+  height: 300px;
+}
+.containerChartTres,
+.containerChart,
+.containerChartDos {
+  margin-left:200px;
+  width: 400px;
+  height: 300px;
+  
+}
+.containerTableUno,
+.containerTableDos,
+.containerTableTres {
+  margin: 50px;
+  width: 700px;
+}
+
+#h5Participantes{
+  visibility: hidden;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 370px;
+  background-color: rgb(15, 123, 224);
+  border: 1px solid rgb(255, 255, 255);
+}
+.h5Cerradas{
+  visibility: hidden;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  background-color: rgb(15, 123, 224);
+  border: 1px solid rgb(255, 255, 255);
+}
+.h5Abiertas{
+  visibility: hidden;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  background-color: rgb(15, 123, 224);
+  border: 1px solid rgb(255, 255, 255);
+}
+h5 {
+  margin-left: 15px;
+} 
+.h5Title{
+  margin-top: -30px;
+  margin-left:150px;
+  visibility: hidden;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 100px;
+  background-color: rgb(160, 48, 48);
+  border: 1px solid rgb(255, 255, 255);
+}
+#h5TitlePartUno, #h5TitlePartDos{
+  margin-top: -30px;
+  margin-left:30px;
+  visibility: hidden;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 365px;
+  background-color: rgb(160, 48, 48);
+  border: 1px solid rgb(255, 255, 255);
+}
+.h5Modal{
+  margin-left: 100px;
+}
+.custom-select{
+  width: 755px;
+  height: 43px;
+}
+#descargarPDF{
+  height: 30px;
+  width: 150px;
+}
+

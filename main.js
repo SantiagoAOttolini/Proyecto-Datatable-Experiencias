@@ -27,7 +27,7 @@ function GetExperiences() {
       request.setRequestHeader(
         "Authorization",
         "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBiYWl0LmNvbSIsImp0aSI6ImE1Mzk2Y2NiLTk3ODUtNDc4OS04OTg5LTBlMmNjYmU0OTk5ZCIsImVtYWlsIjoiYWRtaW5AYmFpdC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AYmFpdC5jb20iLCJuYmYiOjE2MDM4MDA3MzAsImV4cCI6MTYwMzgwMDc1MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMSJ9.LI-1SVooAm_Fhq23GdGBdfbkNdlLroNRy-iK8ecfv6E"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBiYWl0LmNvbSIsImp0aSI6Ijc1N2JiMDRmLWE4YzYtNGY4Ny04ODAyLWQ1ZDVmZDdlNWZlYyIsImVtYWlsIjoiYWRtaW5AYmFpdC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AYmFpdC5jb20iLCJuYmYiOjE2MDU2MzU5NTgsImV4cCI6MTYwNTYzNTk3OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMSJ9.yKuET9_lAt9PISFL_WODr8huv6tI65yNERkU_5WPZfU"
       );
     },
     type: "GET",
@@ -53,14 +53,13 @@ function GetExperiences() {
 //Disparar la obtencion de datos del reporte una vez q se selecciona una experiencia
 $("#input_experiencias").change(function () {
   if (this.value !== "null") {
-    selectedExperienceID=this.value;
-  }
-  else{
-    selectedExperienceID='';
+    selectedExperienceID = this.value;
+  } else {
+    selectedExperienceID = "";
   }
 });
 
-var selectedExperienceID = '';
+var selectedExperienceID = "";
 var serverGdApi = "https://vmi351008.contaboserver.net:2021/";
 function GetExperiencesOutputId(ID) {
   //Parametros de fecha
@@ -81,7 +80,7 @@ function GetExperiencesOutputId(ID) {
       request.setRequestHeader(
         "Authorization",
         "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBiYWl0LmNvbSIsImp0aSI6ImVhYjEwNmNlLTkwYmQtNGIxNC05ODZkLTAwMzc2OWY0OWZjNSIsImVtYWlsIjoiYWRtaW5AYmFpdC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AYmFpdC5jb20iLCJuYmYiOjE2MDUyOTMxMzEsImV4cCI6MTYwNTI5MzE1MSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMSJ9.Vynb2L8pA_Jxw5xy1HPuVDIFv2xvSJ1--hHieT21BgU"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBiYWl0LmNvbSIsImp0aSI6Ijc1N2JiMDRmLWE4YzYtNGY4Ny04ODAyLWQ1ZDVmZDdlNWZlYyIsImVtYWlsIjoiYWRtaW5AYmFpdC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AYmFpdC5jb20iLCJuYmYiOjE2MDU2MzU5NTgsImV4cCI6MTYwNTYzNTk3OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMSJ9.yKuET9_lAt9PISFL_WODr8huv6tI65yNERkU_5WPZfU"
       );
     },
     success: function (json) {
@@ -111,10 +110,12 @@ function GetExperiencesOutputId(ID) {
       var filas = questions.map(function (v) {
         return {
           alias: v.alias,
+          pregTotal: v.preguntasTotales,
           correctas: v.respuestasCorrectas,
           incorrectas: v.respuestasIncorrectas,
         };
       });
+      console.log(questions);
       var questions = json.data.closedQuestions.questions;
       var dataReport = questions.slice(0, 1).map(function (v) {
         return {};
@@ -151,10 +152,12 @@ function GetExperiencesOutputId(ID) {
           {
             title: "Correctas",
             data: "correctas",
+            className: "text-success",
           },
           {
             title: "Incorrectas",
             data: "incorrectas",
+            className: "text-danger",
           },
           {
             title: "N/R",
@@ -162,6 +165,11 @@ function GetExperiencesOutputId(ID) {
             render: function (data, type, row) {
               return numero.participantes - (data.correctas + data.incorrectas);
             },
+            className: "text-warning",
+          },
+          {
+            title: "Totales",
+            data: "pregTotal",
           },
         ],
       });
@@ -179,7 +187,7 @@ function GetExperiencesOutputId(ID) {
         paging: false,
         ordering: false,
         data: filasDos,
-       /*  dom: "Bfrtip",
+        /*  dom: "Bfrtip",
         buttons: ["copy", "excel", "pdf"], */
         columns: [
           {
@@ -189,13 +197,9 @@ function GetExperiencesOutputId(ID) {
           },
           {
             width: "5%",
-            title: "Preguntas totales",
-            data: "ptotales",
-          },
-          {
-            width: "5%",
-            title: "Respuestas totales",
+            title: "Respuestas",
             data: "rtotales",
+            className:"text-success"
           },
           {
             title: "N/R",
@@ -203,6 +207,12 @@ function GetExperiencesOutputId(ID) {
             render: function (data, type, row) {
               return numero.participantes - data.rtotales;
             },
+            className:"text-warning"
+          },
+          {
+            width: "5%",
+            title: "Totales",
+            data: "ptotales",
           },
         ],
       });
@@ -262,24 +272,6 @@ function GetExperiencesOutputId(ID) {
       $(".h5Abiertas").toggleClass("visible");
       $("#h5Participantes").toggleClass("visible");
 
-      /* document
-        .getElementById("descargarPDF")
-        .addEventListener("click", downloadPDF);
-
-      //Descargar pdf original
-      function downloadPDF() {
-        var canvas = document.querySelector("#myChartCuatro");
-        //Crear imagen
-        var canvasImg = canvas.toDataURL("image/jpeg", 2.0);
-
-        //Crear PDF de la imagen
-        var doc = new jsPDF("landscape");
-        doc.setFontSize(20);
-        doc.text(15, 15, "Cool Chart");
-        doc.addImage(canvasImg, "JPEG", 10, 10);
-        doc.save("canvas.pdf");
-      } */
-
       //Grafico Total (Preguntas cerradas). Sumatoria de datos
       a = table.column(1).data().sum();
       b = table.column(2).data().sum();
@@ -296,8 +288,8 @@ function GetExperiencesOutputId(ID) {
             {
               data: [a, b],
               backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(255, 159, 64)",
+                "rgb(113, 192, 102)",
+                "rgb(192, 102, 102)",
                 "rgb(255, 205, 86)",
                 "rgb(75, 192, 192)",
                 "rgb(54, 162, 235)",
@@ -320,7 +312,7 @@ function GetExperiencesOutputId(ID) {
       });
 
       //Grafico Total (Preguntas abiertas). Sumatoria de datos
-      c = table2.column(2).data().sum();
+      c = table2.column(3).data().sum();
       d = table2.column(1).data().sum();
 
       //Definicion tabla Total (Preguntas abiertas)
@@ -335,15 +327,16 @@ function GetExperiencesOutputId(ID) {
             {
               data: [c, d],
               backgroundColor: [
-                "rgb(255, 99, 132)",
+                
                 "rgb(255, 159, 64)",
+                "rgb(113, 192, 102)",
                 "rgb(255, 205, 86)",
                 "rgb(75, 192, 192)",
                 "rgb(54, 162, 235)",
               ],
             },
           ],
-          labels: ["Preguntas totales", "Respuestas totales"],
+          labels: ["Totales", "Respuestas"],
         },
         options: {
           responsive: true,
@@ -374,8 +367,8 @@ function GetExperiencesOutputId(ID) {
               {
                 data: [a, b, c],
                 backgroundColor: [
-                  "rgb(255, 99, 132)",
-                  "rgb(255, 159, 64)",
+                  "rgb(113, 192, 102)",
+                  "rgb(192, 102, 102)",
                   "rgb(255, 205, 86)",
                   "rgb(75, 192, 192)",
                   "rgb(54, 162, 235)",
@@ -416,7 +409,6 @@ function GetExperiencesOutputId(ID) {
                 data: [a, b],
                 backgroundColor: [
                   "rgb(255, 99, 132)",
-                  "rgb(255, 159, 64)",
                   "rgb(255, 205, 86)",
                   "rgb(75, 192, 192)",
                   "rgb(54, 162, 235)",
@@ -509,8 +501,8 @@ function GetExperiencesOutputId(ID) {
             {
               data: [numero.participantes, numero.finalizado],
               backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(255, 159, 64)",
+                "rgb(113, 192, 102)",
+                "rgb(192, 102, 102)",
                 "rgb(255, 205, 86)",
                 "rgb(75, 192, 192)",
                 "rgb(54, 162, 235)",
@@ -537,11 +529,10 @@ function GetExperiencesOutputId(ID) {
       console.log(error);
     },
   });
-  
 }
 $(document).ready(function () {
   InitializeSelect();
- /*  var specialElementHandler = {
+  /*  var specialElementHandler = {
     "#editor": function (element, renderer) {
       return true;
     },
@@ -555,9 +546,20 @@ $(document).ready(function () {
   }); */
 
   //Filtro de fechas
-  $("#btnObtener" ).click(function() {
+  $("#btnObtener").click(function () {
     if (selectedExperienceID) {
-      GetExperiencesOutputId(selectedExperienceID)
+      GetExperiencesOutputId(selectedExperienceID);
+    }
+    if (
+      document.getElementById("from_date").value >
+      document.getElementById("to_date").value
+    ) {
+      document.getElementById("from_date").disabled = true;
+      document.getElementById("to_date").disabled = true;
+      alertify.error("La fecha de inicio debe ser menor a la Fecha fin");
+      setTimeout(function () {
+        location.reload();
+      }, 3000);
     }
   });
 });

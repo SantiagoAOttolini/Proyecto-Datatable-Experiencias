@@ -89,7 +89,10 @@ function GetExperiencesOutputId(ID) {
         json.data.openedQuestions == null ||
         json.data.closedQuestions == null
       ) {
-        alertify.error("Questions devolvio nulo");
+        alertify.error("Questions devolvio nulo, la pagina se recargara");
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       }
       //Obtencion de datos
       var numero = {
@@ -133,7 +136,6 @@ function GetExperiencesOutputId(ID) {
       if (table) {
         table.destroy();
       }
-      var doc = new jsPDF();
       //Definicion tabla uno (Preguntas abiertas)
       table = $("#tablaUno").DataTable({
         searching: false,
@@ -142,8 +144,6 @@ function GetExperiencesOutputId(ID) {
         ordering: false,
         select: true,
         data: filas,
-        /* dom: "Bfrtip",
-        buttons: ["copy", "excel", "pdf"], */
         columns: [
           {
             title: "Alias",
@@ -187,8 +187,6 @@ function GetExperiencesOutputId(ID) {
         paging: false,
         ordering: false,
         data: filasDos,
-        /*  dom: "Bfrtip",
-        buttons: ["copy", "excel", "pdf"], */
         columns: [
           {
             width: "10%",
@@ -228,8 +226,6 @@ function GetExperiencesOutputId(ID) {
         paging: false,
         ordering: false,
         data: dataReport,
-        /* dom: "Bfrtip",
-        buttons: ["copy", "excel", "pdf"], */
         columns: [
           {
             title: "Datos",
@@ -304,7 +300,12 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                return value;
+                if(value==0){
+                  return value="."
+                }
+                else{
+                  return value;
+                }
               },
             },
           },
@@ -344,7 +345,12 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                return value;
+                if(value==0){
+                  return value="."
+                }
+                else{
+                  return value;
+                }
               },
             },
           },
@@ -388,8 +394,14 @@ function GetExperiencesOutputId(ID) {
             plugins: {
               datalabels: {
                 formatter: (value) => {
-                  return value;
+                  if(value==0){
+                    return value="."
+                  }
+                  else{
+                    return value;
+                  }
                 },
+
               },
             },
           },
@@ -428,7 +440,12 @@ function GetExperiencesOutputId(ID) {
             plugins: {
               datalabels: {
                 formatter: (value) => {
-                  return value;
+                  if(value==0){
+                    return value="."
+                  }
+                  else{
+                    return value;
+                  }
                 },
               },
             },
@@ -517,7 +534,12 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                return value;
+                if(value==0){
+                  return value="."
+                }
+                else{
+                  return value;
+                }
               },
             },
           },
@@ -532,19 +554,6 @@ function GetExperiencesOutputId(ID) {
 }
 $(document).ready(function () {
   InitializeSelect();
-  /*  var specialElementHandler = {
-    "#editor": function (element, renderer) {
-      return true;
-    },
-  };
-  $("#cmd").click(function () {
-    var doc = new jsPDF();
-    doc.fromHTML($("#target").html(), {
-      elementHandlers: specialElementHandler,
-    });
-    doc.save("samples.pdf");
-  }); */
-
   //Filtro de fechas
   $("#btnObtener").click(function () {
     if (selectedExperienceID) {

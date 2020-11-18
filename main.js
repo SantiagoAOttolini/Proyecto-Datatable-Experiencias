@@ -168,8 +168,11 @@ function GetExperiencesOutputId(ID) {
             className: "text-warning",
           },
           {
-            title: "Totales",
-            data: "pregTotal",
+            title: "Total",
+            data: null,
+            render: function (data, type, row) {
+              return data.incorrectas + data.correctas + (numero.participantes - (data.correctas + data.incorrectas));
+            },
           },
         ],
       });
@@ -420,7 +423,7 @@ function GetExperiencesOutputId(ID) {
               {
                 data: [a, b],
                 backgroundColor: [
-                  "rgb(255, 99, 132)",
+                  "rgb(113, 192, 102)",
                   "rgb(255, 205, 86)",
                   "rgb(75, 192, 192)",
                   "rgb(54, 162, 235)",
@@ -489,7 +492,7 @@ function GetExperiencesOutputId(ID) {
         var data = table2.row({ selected: true }).data();
         var row = table2.row({ selected: true });
         var a = data["rtotales"];
-        var b = table2.cell(row, 3).render("display");
+        var b = table2.cell(row, 2).render("display");
 
         //Obtencion del titulo que se encuentra arriba del grafico particular
         $("#h5TitlePartDos").toggleClass("visible");

@@ -85,15 +85,15 @@ function GetExperiencesOutputId(ID) {
     },
     success: function (json) {
       //Validacion
-      if (
+     if (
         json.data.openedQuestions == null ||
         json.data.closedQuestions == null
       ) {
-        alertify.error("Questions devolvio nulo, la pagina se recargara");
-        setTimeout(function () {
-          location.reload();
-        }, 3000);
-      }
+        alertify.error("El rango de fechas es invalido");
+        table.clear().draw()
+        table2.clear().draw()
+        table3.clear().draw()
+      } 
       //Obtencion de datos
       var numero = {
         participantes: json.data.numberOfParticipants,

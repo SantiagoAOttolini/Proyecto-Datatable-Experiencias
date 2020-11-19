@@ -85,15 +85,35 @@ function GetExperiencesOutputId(ID) {
     },
     success: function (json) {
       //Validacion
-     if (
+      if (
         json.data.openedQuestions == null ||
         json.data.closedQuestions == null
       ) {
-        alertify.error("El rango de fechas es invalido");
-        table.clear().draw()
-        table2.clear().draw()
-        table3.clear().draw()
-      } 
+        alertify.error("Algo fallo, contacte con el servicio tecnico");
+        table.clear().draw();
+        table2.clear().draw();
+        table3.clear().draw();
+        $(".containerChartCuatro").hide();
+        $(".containerChartCinco").hide();
+        $(".containerChartTres").hide();
+        $(".containerChart").hide();
+        $(".containerChartDos").hide();
+      } else {
+        if ($(".h5Title").is(":hidden")) {
+          $(".h5Title").toggleClass("visible !important")
+        }
+        if ($("#h5TitlePartUno").is(":hidden")) {
+          $("#h5TitlePartUno").toggleClass("visible")
+        }    
+        if ($("#h5TitlePartDos").is(":hidden")) {
+          $("#h5TitlePartDos").toggleClass("visible")
+        }     
+        $(".containerChartTres").show();
+        $(".containerChartCuatro").show();
+        $(".containerChartCinco").show();
+        $(".containerChart").show();
+        $(".containerChartDos").show();
+      }
       //Obtencion de datos
       var numero = {
         participantes: json.data.numberOfParticipants,
@@ -171,7 +191,11 @@ function GetExperiencesOutputId(ID) {
             title: "Total",
             data: null,
             render: function (data, type, row) {
-              return data.incorrectas + data.correctas + (numero.participantes - (data.correctas + data.incorrectas));
+              return (
+                data.incorrectas +
+                data.correctas +
+                (numero.participantes - (data.correctas + data.incorrectas))
+              );
             },
           },
         ],
@@ -200,7 +224,7 @@ function GetExperiencesOutputId(ID) {
             width: "5%",
             title: "Respuestas",
             data: "rtotales",
-            className:"text-success"
+            className: "text-success",
           },
           {
             title: "N/R",
@@ -208,7 +232,7 @@ function GetExperiencesOutputId(ID) {
             render: function (data, type, row) {
               return numero.participantes - data.rtotales;
             },
-            className:"text-warning"
+            className: "text-warning",
           },
           {
             width: "5%",
@@ -266,7 +290,7 @@ function GetExperiencesOutputId(ID) {
       document.getElementById("h5Participantes").innerHTML = datos.Alias;
 
       //Cambio de clase hidden a visible
-      $(".h5Title").toggleClass("visible");
+      $(".h5Title").toggleClass("visible !important");
       $(".h5Cerradas").toggleClass("visible");
       $(".h5Abiertas").toggleClass("visible");
       $("#h5Participantes").toggleClass("visible");
@@ -303,10 +327,9 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                if(value==0){
-                  return value="."
-                }
-                else{
+                if (value == 0) {
+                  return (value = ".");
+                } else {
                   return value;
                 }
               },
@@ -331,7 +354,6 @@ function GetExperiencesOutputId(ID) {
             {
               data: [c, d],
               backgroundColor: [
-                
                 "rgb(255, 159, 64)",
                 "rgb(113, 192, 102)",
                 "rgb(255, 205, 86)",
@@ -348,10 +370,9 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                if(value==0){
-                  return value="."
-                }
-                else{
+                if (value == 0) {
+                  return (value = ".");
+                } else {
                   return value;
                 }
               },
@@ -397,14 +418,12 @@ function GetExperiencesOutputId(ID) {
             plugins: {
               datalabels: {
                 formatter: (value) => {
-                  if(value==0){
-                    return value="."
-                  }
-                  else{
+                  if (value == 0) {
+                    return (value = ".");
+                  } else {
                     return value;
                   }
                 },
-
               },
             },
           },
@@ -443,10 +462,9 @@ function GetExperiencesOutputId(ID) {
             plugins: {
               datalabels: {
                 formatter: (value) => {
-                  if(value==0){
-                    return value="."
-                  }
-                  else{
+                  if (value == 0) {
+                    return (value = ".");
+                  } else {
                     return value;
                   }
                 },
@@ -458,8 +476,9 @@ function GetExperiencesOutputId(ID) {
 
       //Funcion select GRAFICO PREGUNTAS CERRADAS
       table.on("select", function (e, dt, type, indexes) {
-        $(".containerChartCuatro").toggleClass("d-none");
-
+        if ($(".containerChartCuatro").is(":visible")) {
+          $(".containerChartCuatro").toggleClass("d-none");
+        }
         //Parametros obteniendo los datos de las filas
         var data = table.row({ selected: true }).data();
         var row = table.row({ selected: true });
@@ -468,6 +487,7 @@ function GetExperiencesOutputId(ID) {
         var b = data["incorrectas"];
 
         //Obtencion del titulo que se encuentra arriba del grafico particular
+        $("#h5TitlePartUno").show()
         $("#h5TitlePartUno").toggleClass("visible");
         var title = data["alias"];
         document.getElementById("h5TitlePartUno").innerHTML = title;
@@ -479,15 +499,19 @@ function GetExperiencesOutputId(ID) {
       //Funcion deselect GRAFICO PREGUNTAS CERRADAS
       table.on("deselect", function (e, dt, type, indexes) {
         //Cambio de clases de visible a invisible
-        $("#myChart").toggleClass("d-none");
-        $(".containerChartCuatro").toggleClass("d-none");
-        $("#h5TitlePartUno").toggleClass("d-none");
+        if ($("#myChart").is(":visible")) {
+          $(".containerChartCuatro").toggleClass("d-none");
+          $("#myChart").toggleClass("d-none");
+          $("#h5TitlePartUno").toggleClass("d-none !important");
+        }
+        
       });
 
       //Funcion select GRAFICO PREGUNTAS ABIERTAS
       table2.on("select", function (e, dt, type, indexes) {
-        $(".containerChartCinco").toggleClass("d-none");
-
+        if ($(".containerChartCinco").is(":visible")) {
+          $(".containerChartCinco").toggleClass("d-none");
+        }
         //Parametros obteniendo los datos de las filas
         var data = table2.row({ selected: true }).data();
         var row = table2.row({ selected: true });
@@ -495,6 +519,7 @@ function GetExperiencesOutputId(ID) {
         var b = table2.cell(row, 2).render("display");
 
         //Obtencion del titulo que se encuentra arriba del grafico particular
+        $("#h5TitlePartDos").show()
         $("#h5TitlePartDos").toggleClass("visible");
         var title = data["alias"];
         document.getElementById("h5TitlePartDos").innerHTML = title;
@@ -505,9 +530,11 @@ function GetExperiencesOutputId(ID) {
 
       //Funcion deselect GRAFICO PREGUNTAS ABIERTAS
       table2.on("deselect", function (e, dt, type, indexes) {
-        $("#myChartDos").toggleClass("d-none");
-        $(".containerChartCinco").toggleClass("d-none");
-        $("#h5TitlePartDos").toggleClass("d-none");
+        if ($("#myChartDos").is(":visible")) {
+          $("#myChartDos").toggleClass("d-none");
+          $(".containerChartCinco").toggleClass("d-none");
+          $("#h5TitlePartDos").toggleClass("d-none !important");
+        }
       });
 
       //Generar grafico DATOS
@@ -537,10 +564,9 @@ function GetExperiencesOutputId(ID) {
           plugins: {
             datalabels: {
               formatter: (value) => {
-                if(value==0){
-                  return value="."
-                }
-                else{
+                if (value == 0) {
+                  return (value = ".");
+                } else {
                   return value;
                 }
               },
